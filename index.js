@@ -4,6 +4,7 @@ import connectDB from './database.js';
 import bookRoutes from './routes/book.route.js';
 import cors from 'cors';
 import userRoutes from './routes/user.route.js';
+import verifyToken from './middleware/auth.middleware.js';
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
-app.use('/api/book', bookRoutes);
+app.use('/api/book', verifyToken, bookRoutes);
 app.use('/api/user', userRoutes);
 
 app.listen(PORT, () => {

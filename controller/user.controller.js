@@ -16,14 +16,14 @@ export const handleUserSignup = async (req, res) => {
         }
         const hashedPassword = await bcrypt.hash(body.password, 10);
         const user = await User.create({ ...body, password: hashedPassword });
-        
+
         // Generate JWT token
         const token = jwt.sign(
             { userId: user._id, email: user.email },
             process.env.JWT_SECRET || 'your-secret-key',
             { expiresIn: '7d' }
         );
-        
+
         return res.status(201).json({ 
             message: 'User created successfully', 
             success: true, 
@@ -32,8 +32,8 @@ export const handleUserSignup = async (req, res) => {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email
-            }, 
-            token: token 
+            },
+            token: token
         }); 
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error', success: false, error: error.message });
