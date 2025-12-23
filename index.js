@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
-app.use('/api/book', verifyToken, bookRoutes);
+app.use('/api/book', bookRoutes);
 app.use('/api/user', userRoutes);
 
 app.listen(PORT, () => {
